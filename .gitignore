@@ -1,0 +1,103 @@
+# Android
+*.iml
+.gradle
+/local.properties
+/.idea/
+*.hprof
+*.log
+.DS_Store
+Thumbs.db
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Kotlin
+*.kt~
+*.kotlin_module
+*.kotlin_version
+
+# Mac
+.DS_Store
+*.swp
+*.swo
+*~
+.xcodeproj/xcuserdata/
+*.xccheckout
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+*.pyc
+.build/
+DerivedData/
+*.moved-aside
+*.xcuserstate
+project.xcworkspace/
+
+# Generated files
+*.generated.swift
+*.generated.kt
+
+# Protocol Buffers
+*.pb.h
+*.pb.cc
+*.pb.o
+*_pb2.py
+*_pb2.pyi
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.bak
+*.swp
+*~
+
+# Build artifacts
+/build/
+/dist/
+/target/
+out/
+
+# Certificates and keys (IMPORTANT!)
+*.jks
+*.keystore
+*.p12
+*.pem
+*.cert
+*.key
+!secrets/README.md
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Testing
+/jacoco/
+coverage/
+*.coverage
+
+# Release artifacts
+*.apk
+*.aab
+*.dmg
+*.pkg
