@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package droidlink.protocol;
+
+// Call handling messages
+message CallMessage {
+  enum CallEventType {
+    RINGING = 1;                   // Incoming call
+    ANSWERED = 2;                  // Call answered
+    ENDED = 3;                     // Call ended
+    MISSED = 4;                    // Missed call
+  }
+
+  CallEventType event = 1;
+
+  // For RINGING, ANSWERED, MISSED
+  string phone_number = 2;
+  string contact_name = 3;
+  bytes contact_photo = 4;         // Contact photo (PNG)
+  int64 timestamp = 5;
+  string call_id = 6;              // Unique call ID
+}
+
+// Call action from Mac to Android
+message CallAction {
+  enum ActionType {
+    ANSWER = 1;
+    DECLINE = 2;
+    HANGUP = 3;
+    MUTE = 4;
+    UNMUTE = 5;
+    SPEAKER_ON = 6;
+    SPEAKER_OFF = 7;
+  }
+
+  ActionType action = 1;
+  string call_id = 2;
+}

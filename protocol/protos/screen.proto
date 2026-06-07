@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package droidlink.protocol;
+
+// Screen mirroring messages
+message ScreenMessage {
+  enum StreamEventType {
+    START = 0;                     // Start streaming
+    FRAME = 1;                     // Video frame
+    STOP = 2;                      // Stop streaming
+    PAUSE = 3;                     // Pause streaming
+    RESUME = 4;                    // Resume streaming
+    ERROR = 5;                     // Stream error
+  }
+
+  StreamEventType event = 1;
+
+  // For START
+  StreamConfig config = 2;
+
+  // For FRAME
+  bytes frame_data = 3;            // H.264 encoded frame
+  int32 frame_number = 4;
+  int64 timestamp = 5;
+  bool is_keyframe = 6;            // Sync frame
+
+  // For ERROR
+  string error_message = 7;
+
+  // For PAUSE/RESUME
+  int64 paused_at = 8;             // Timestamp when paused
+}
+
+// Stream configuration
+message StreamConfig {
+  int32 width = 1;                 // Video width
+  int32 height = 2;                // Video height
+  int32 fps = 3;                   // Target FPS
+  int32 bitrate = 4;               // Bitrate (kbps)
+  VideoCodec codec = 5;
+}
+
+enum VideoCodec {
+  UNKNOWN = 0;
+  H264 = 1;                        // H.264 baseline
+  H265 = 2;                        // H.265/HEVC (future)
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package droidlink.protocol;
+
+// File transfer messages
+message FileMessage {
+  enum FileOperation {
+    UNKNOWN = 0;
+    LIST_REQUEST = 1;              // Request file listing
+    LIST_RESPONSE = 2;             // File listing
+    DOWNLOAD_REQUEST = 3;          // Request download
+    DOWNLOAD_RESPONSE = 4;         // File chunk
+    UPLOAD_REQUEST = 5;            // Push file
+    UPLOAD_RESPONSE = 6;           // Acknowledge upload
+    DELETE = 7;                    // Delete file
+    ERROR = 8;                     // Error response
+  }
+
+  FileOperation operation = 1;
+
+  // For LIST_REQUEST, DOWNLOAD_REQUEST
+  string file_path = 2;
+
+  // For LIST_RESPONSE
+  repeated FileInfo files = 3;
+
+  // For DOWNLOAD_REQUEST, DOWNLOAD_RESPONSE
+  int64 file_size = 4;
+  string mime_type = 5;
+  bytes file_data = 6;             // Chunked data
+  int32 chunk_index = 7;           // Chunk number (0-based)
+  int32 total_chunks = 8;          // Total chunks
+  string file_id = 9;              // Unique transfer ID
+
+  // For ERROR
+  string error_message = 10;
+}
+
+// File information
+message FileInfo {
+  string name = 1;
+  string path = 2;
+  int64 size = 3;
+  int64 modified_time = 4;
+  bool is_directory = 5;
+  string mime_type = 6;
+}

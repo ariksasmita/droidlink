@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package droidlink.protocol;
+
+// Virtual webcam and microphone messages
+message MediaMessage {
+  enum MediaEventType {
+    CAMERA_START = 1;              // Start camera stream
+    CAMERA_FRAME = 2;              // Video frame
+    CAMERA_STOP = 3;               // Stop camera stream
+    MICROPHONE_START = 4;          // Start mic stream
+    MICROPHONE_DATA = 5;           // Audio data
+    MICROPHONE_STOP = 6;           // Stop mic stream
+  }
+
+  MediaEventType event = 1;
+
+  // For CAMERA_START
+  CameraConfig camera_config = 2;
+
+  // For CAMERA_FRAME
+  bytes frame_data = 3;            // H.264 encoded
+  int32 frame_number = 4;
+  int64 timestamp = 5;
+  bool is_keyframe = 6;
+
+  // For MICROPHONE_START
+  AudioConfig audio_config = 7;
+
+  // For MICROPHONE_DATA
+  bytes audio_data = 8;            // PCM or AAC
+  int32 sample_count = 9;
+  int64 audio_timestamp = 10;
+}
+
+// Camera configuration
+message CameraConfig {
+  int32 width = 1;
+  int32 height = 2;
+  int32 fps = 3;
+  CameraFacing facing = 4;
+  VideoCodec codec = 5;
+}
+
+enum CameraFacing {
+  UNKNOWN = 0;
+  FRONT = 1;
+  BACK = 2;
+}
+
+// Audio configuration
+message AudioConfig {
+  int32 sample_rate = 1;           // e.g., 44100, 48000
+  int32 channels = 2;              // 1 = mono, 2 = stereo
+  AudioCodec codec = 3;
+}
+
+enum AudioCodec {
+  UNKNOWN = 0;
+  PCM = 1;                        // Raw PCM (16-bit)
+  AAC = 2;                        // AAC encoded
+}
