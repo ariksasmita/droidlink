@@ -28,6 +28,10 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 .product(name: "SwiftLog", package: "swift-log")
+            ],
+            sources: [
+                "Sources/Generated/*.swift",
+                "Sources/*.swift"
             ]
         ),
         .testTarget(
