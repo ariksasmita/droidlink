@@ -2,6 +2,14 @@ syntax = "proto3";
 
 package droidlink.protocol;
 
+import "clipboard.proto";
+import "notification.proto";
+import "file.proto";
+import "screen.proto";
+import "media.proto";
+import "call.proto";
+import "system.proto";
+
 // Root message type for all DroidLink communication
 message DroidLinkMessage {
   uint64 id = 1;                    // Unique message ID (timestamp-based)
@@ -20,7 +28,7 @@ message DroidLinkMessage {
 }
 
 enum MessageType {
-  UNKNOWN = 0;
+  MSG_UNKNOWN = 0;
   CLIPBOARD_SYNC = 1;
   NOTIFICATION_MIRROR = 2;
   FILE_TRANSFER = 3;

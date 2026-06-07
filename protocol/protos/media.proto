@@ -2,9 +2,12 @@ syntax = "proto3";
 
 package droidlink.protocol;
 
+import "screen.proto";
+
 // Virtual webcam and microphone messages
 message MediaMessage {
   enum MediaEventType {
+    MEDIA_UNKNOWN = 0;
     CAMERA_START = 1;              // Start camera stream
     CAMERA_FRAME = 2;              // Video frame
     CAMERA_STOP = 3;               // Stop camera stream
@@ -43,7 +46,7 @@ message CameraConfig {
 }
 
 enum CameraFacing {
-  UNKNOWN = 0;
+  CAMERA_FACING_UNKNOWN = 0;
   FRONT = 1;
   BACK = 2;
 }
@@ -56,7 +59,7 @@ message AudioConfig {
 }
 
 enum AudioCodec {
-  UNKNOWN = 0;
-  PCM = 1;                        // Raw PCM (16-bit)
-  AAC = 2;                        // AAC encoded
+  AUDIO_CODEC_UNKNOWN = 0;
+  PCM = 1;                         // Raw PCM (16-bit)
+  AAC = 2;                         // AAC encoded
 }

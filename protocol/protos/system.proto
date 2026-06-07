@@ -5,12 +5,12 @@ package droidlink.protocol;
 // Connection lifecycle and system control messages
 message SystemMessage {
   enum SystemEventType {
-    UNKNOWN = 0;
+    SYS_UNKNOWN = 0;
     HELLO = 1;           // Initial handshake
     HELLO_ACK = 2;       // Handshake acknowledgment
     HEARTBEAT = 3;       // Keep-alive ping
     GOODBYE = 4;         // Graceful disconnect
-    ERROR = 5;           // Error notification
+    SYS_ERROR = 5;       // Error notification
   }
 
   SystemEventType event = 1;
@@ -52,7 +52,7 @@ message ErrorMessage {
 }
 
 enum DeviceType {
-  UNKNOWN = 0;
+  DEVICE_UNKNOWN = 0;
   ANDROID = 1;
   MAC = 2;
   IPAD = 3;
@@ -60,7 +60,7 @@ enum DeviceType {
 }
 
 enum ErrorCode {
-  UNKNOWN_ERROR = 0;
+  ERROR_UNKNOWN = 0;
   CONNECTION_FAILED = 1;
   AUTHENTICATION_FAILED = 2;
   PROTOCOL_MISMATCH = 3;

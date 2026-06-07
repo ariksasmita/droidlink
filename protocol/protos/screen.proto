@@ -5,12 +5,13 @@ package droidlink.protocol;
 // Screen mirroring messages
 message ScreenMessage {
   enum StreamEventType {
-    START = 0;                     // Start streaming
-    FRAME = 1;                     // Video frame
-    STOP = 2;                      // Stop streaming
-    PAUSE = 3;                     // Pause streaming
-    RESUME = 4;                    // Resume streaming
-    ERROR = 5;                     // Stream error
+    STREAM_UNKNOWN = 0;
+    START = 1;                     // Start streaming
+    FRAME = 2;                     // Video frame
+    STOP = 3;                      // Stop streaming
+    PAUSE = 4;                     // Pause streaming
+    RESUME = 5;                    // Resume streaming
+    STREAM_ERROR = 6;              // Stream error
   }
 
   StreamEventType event = 1;
@@ -41,7 +42,7 @@ message StreamConfig {
 }
 
 enum VideoCodec {
-  UNKNOWN = 0;
+  CODEC_UNKNOWN = 0;
   H264 = 1;                        // H.264 baseline
   H265 = 2;                        // H.265/HEVC (future)
 }

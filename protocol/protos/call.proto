@@ -5,6 +5,7 @@ package droidlink.protocol;
 // Call handling messages
 message CallMessage {
   enum CallEventType {
+    CALL_UNKNOWN = 0;
     RINGING = 1;                   // Incoming call
     ANSWERED = 2;                  // Call answered
     ENDED = 3;                     // Call ended
@@ -24,6 +25,7 @@ message CallMessage {
 // Call action from Mac to Android
 message CallAction {
   enum ActionType {
+    CALL_ACTION_UNKNOWN = 0;
     ANSWER = 1;
     DECLINE = 2;
     HANGUP = 3;

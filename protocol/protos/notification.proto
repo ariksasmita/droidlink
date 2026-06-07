@@ -5,6 +5,7 @@ package droidlink.protocol;
 // Notification mirroring messages
 message NotificationMessage {
   enum NotificationEventType {
+    NOTIF_UNKNOWN = 0;
     POSTED = 1;           // New notification
     UPDATED = 2;          // Existing notification updated
     REMOVED = 3;          // Notification removed
@@ -47,8 +48,8 @@ message NotificationAction {
 }
 
 enum ActionType {
-  UNKNOWN = 0;
+  ACTION_UNKNOWN = 0;
   REPLY = 1;                       // Text input action
   DISMISS = 2;                     // Dismiss notification
-  CUSTOM = 3;                     // App-specific action
+  CUSTOM = 3;                      // App-specific action
 }

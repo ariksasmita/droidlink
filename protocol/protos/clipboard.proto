@@ -19,8 +19,8 @@ message ClipboardData {
 }
 
 enum DataType {
-  UNKNOWN = 0;
-  TEXT = 1;
-  IMAGE = 2;
-  URL = 3;
+  DATA_UNKNOWN = 0;
+  DATA_TEXT = 1;
+  DATA_IMAGE = 2;
+  DATA_URL = 3;
 }
