@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.droidlink.app.ui.main.MainViewModel
 
@@ -51,22 +52,18 @@ fun MainScreen(
                 is MainUiState.ReadyToScan -> {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("Ready to scan QR code")
-                        Text("Point camera at Mac QR code")
-                            .font(.caption)
-                            .foregroundStyle(MaterialTheme.colorScheme.secondary)
+                        Text("Point camera at Mac QR code",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.secondary
+                        )
                         
                         // TODO: Add QR code scanner UI
                         // For now, simulate scan with test button
                         Button(
                             onClick = {
                                 // Simulate QR scan with test data
-                                val testQR = """{
-                                    "version": "1.0.0",
-                                    "deviceId": "test-mac-123",
-                                    "deviceName": "MacBook Pro",
-                                    "certificateFingerprint": "aa:bb:cc:dd",
-                                    "timestamp": ${System.currentTimeMillis() / 1000}
-                                }""".trimIndent()
+                                val timestamp = System.currentTimeMillis() / 1000
+                                val testQR = "{\"version\": \"1.0.0\", \"deviceId\": \"test-mac-123\", \"deviceName\": \"MacBook Pro\", \"certificateFingerprint\": \"aa:bb:cc:dd\", \"timestamp\": $timestamp}"
                                 viewModel.onQRCodeScanned(testQR)
                             }
                         ) {

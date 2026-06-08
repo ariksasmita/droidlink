@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.droidlink.core.security.CertificateGenerator
 import com.droidlink.core.security.QRCodeParser
-import com.droidlink.core.security.extractDeviceInfo
+import com.droidlink.core.security.DeviceInfo
+import com.droidlink.core.security.ValidationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -52,9 +53,9 @@ class MainViewModel @Inject constructor(
                 val validationResult = qrCodeParser.validate(token)
                 
                 when (validationResult) {
-                    is com.droidlink.core.security.ValidationResult.Valid -> {
+                    is ValidationResult.Valid -> {
                         // Extract device info
-                        val deviceInfo = qrCodeParser.extractDeviceInfo(token)
+                        val deviceInfo = com.droidlink.core.security.extractDeviceInfo(token)
                         
                         // Store paired device info
                         // TODO: Store in database
@@ -67,13 +68,13 @@ class MainViewModel @Inject constructor(
                         kotlinx.coroutines.delay(2000)
                         _uiState.value = MainUiState.Connected(deviceInfo.deviceName)
                     }
-                    is com.droidlink.core.security.ValidationResult.InvalidVersion -> {
+                    is ValidationResult.InvalidVersion -> {
                         _uiState.value = MainUiState.Error(validationResult.message)
                     }
-                    is com.droidlink.core.security.ValidationResult.ExpiredQR -> {
+                    is ValidationResult.ExpiredQR -> {
                         _uiState.value = MainUiState.Error(validationResult.message)
                     }
-                    is com.droidlink.core.security.ValidationResult.FutureQR -> {
+                    is ValidationResult.FutureQR -> {
                         _uiState.value = MainUiState.Error(validationResult.message)
                     }
                 }

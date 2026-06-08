@@ -1,0 +1,10 @@
+R_DEF: Internal format may change without notice
+local
+string app_name
+string connected
+string connecting
+string disconnect
+string pair_device
+string qr_pairing_instructions
+style Theme.DroidLink
+xml accessory_filter

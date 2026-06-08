@@ -1,0 +1,247 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.droidlink.app"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="29"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- Permissions -->
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:5:5-67
+12-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:5:22-64
+13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+13-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:6:5-76
+13-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:6:22-73
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:7:5-79
+14-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:7:22-76
+15    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+15-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:8:5-77
+15-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:8:22-74
+16    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
+16-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:9:5-93
+16-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:9:22-90
+17    <uses-permission android:name="android.permission.READ_CLIPBOARD" />
+17-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:10:5-73
+17-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:10:22-70
+18    <uses-permission android:name="android.permission.WRITE_CLIPBOARD" />
+18-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:11:5-74
+18-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:11:22-71
+19    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+19-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:12:5-80
+19-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:12:22-77
+20    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+20-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:13:5-81
+20-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:13:22-78
+21    <uses-permission android:name="android.permission.CAMERA" />
+21-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:14:5-65
+21-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:14:22-62
+22    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+22-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:15:5-71
+22-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:15:22-68
+23    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+23-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:16:5-75
+23-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:16:22-72
+24    <uses-permission android:name="android.permission.CAPTURE_VIDEO_OUTPUT" />
+24-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:17:5-79
+24-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:17:22-76
+25
+26    <!-- USB Accessory -->
+27    <uses-feature android:name="android.hardware.usb.accessory" />
+27-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:20:5-67
+27-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:20:19-64
+28
+29    <permission
+29-->[androidx.core:core:1.12.0] /Users/sasmitai/.gradle/caches/transforms-4/827d37026eb1cc7d39f6baae82829678/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+30        android:name="com.droidlink.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+30-->[androidx.core:core:1.12.0] /Users/sasmitai/.gradle/caches/transforms-4/827d37026eb1cc7d39f6baae82829678/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+31        android:protectionLevel="signature" />
+31-->[androidx.core:core:1.12.0] /Users/sasmitai/.gradle/caches/transforms-4/827d37026eb1cc7d39f6baae82829678/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+32
+33    <uses-permission android:name="com.droidlink.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+33-->[androidx.core:core:1.12.0] /Users/sasmitai/.gradle/caches/transforms-4/827d37026eb1cc7d39f6baae82829678/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+33-->[androidx.core:core:1.12.0] /Users/sasmitai/.gradle/caches/transforms-4/827d37026eb1cc7d39f6baae82829678/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+34
+35    <application
+35-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:22:5-63:19
+36        android:name="com.droidlink.app.DroidLinkApplication"
+36-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:23:9-45
+37        android:allowBackup="true"
+37-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:24:9-35
+38        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+38-->[androidx.core:core:1.12.0] /Users/sasmitai/.gradle/caches/transforms-4/827d37026eb1cc7d39f6baae82829678/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+39        android:debuggable="true"
+40        android:extractNativeLibs="false"
+41        android:icon="@android:drawable/sym_def_app_icon"
+41-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:25:9-58
+42        android:label="@string/app_name"
+42-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:26:9-41
+43        android:supportsRtl="true"
+43-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:27:9-35
+44        android:theme="@style/Theme.DroidLink" >
+44-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:28:9-47
+45        <activity
+45-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:30:9-38:20
+46            android:name="com.droidlink.app.MainActivity"
+46-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:31:13-41
+47            android:exported="true"
+47-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:32:13-36
+48            android:theme="@style/Theme.DroidLink" >
+48-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:33:13-51
+49            <intent-filter>
+49-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:34:13-37:29
+50                <action android:name="android.intent.action.MAIN" />
+50-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:35:17-69
+50-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:35:25-66
+51
+52                <category android:name="android.intent.category.LAUNCHER" />
+52-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:36:17-77
+52-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:36:27-74
+53            </intent-filter>
+54        </activity>
+55
+56        <!-- Notification Listener Service -->
+57        <service
+57-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:41:9-49:19
+58            android:name="com.droidlink.app.feature.notifications.DroidLinkNotificationService"
+58-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:42:13-79
+59            android:enabled="true"
+59-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:43:13-35
+60            android:exported="false"
+60-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:44:13-37
+61            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+61-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:45:13-87
+62            <intent-filter>
+62-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:46:13-48:29
+63                <action android:name="android.service.notification.NotificationListenerService" />
+63-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:47:17-99
+63-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:47:25-96
+64            </intent-filter>
+65        </service>
+66
+67        <!-- USB Accessory (AOA) -->
+68        <activity
+68-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:52:9-61:20
+69            android:name="android.hardware.usb.UsbAccessoryActivity"
+69-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:53:13-69
+70            android:exported="true" >
+70-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:54:13-36
+71            <intent-filter>
+71-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:55:13-57:29
+72                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
+72-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:56:17-93
+72-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:56:25-90
+73            </intent-filter>
+74
+75            <meta-data
+75-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:58:13-60:60
+76                android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+76-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:59:17-82
+77                android:resource="@xml/accessory_filter" />
+77-->/Users/sasmitai/Documents/learn/droidlink/android/app/src/main/AndroidManifest.xml:60:17-57
+78        </activity>
+79
+80        <!--
+81        Service for holding metadata. Cannot be instantiated.
+82        Metadata will be merged from other manifests.
+83        -->
+84        <service
+84-->[androidx.camera:camera-core:1.3.1] /Users/sasmitai/.gradle/caches/transforms-4/4a869f4baddf234d6f099b49de07aed4/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:29:9-33:78
+85            android:name="androidx.camera.core.impl.MetadataHolderService"
+85-->[androidx.camera:camera-core:1.3.1] /Users/sasmitai/.gradle/caches/transforms-4/4a869f4baddf234d6f099b49de07aed4/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:30:13-75
+86            android:enabled="false"
+86-->[androidx.camera:camera-core:1.3.1] /Users/sasmitai/.gradle/caches/transforms-4/4a869f4baddf234d6f099b49de07aed4/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:31:13-36
+87            android:exported="false" >
+87-->[androidx.camera:camera-core:1.3.1] /Users/sasmitai/.gradle/caches/transforms-4/4a869f4baddf234d6f099b49de07aed4/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:32:13-37
+88            <meta-data
+88-->[androidx.camera:camera-camera2:1.3.1] /Users/sasmitai/.gradle/caches/transforms-4/4359e7b7c4c2a88fd9093acab7c6b261/transformed/jetified-camera-camera2-1.3.1/AndroidManifest.xml:30:13-32:89
+89                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+89-->[androidx.camera:camera-camera2:1.3.1] /Users/sasmitai/.gradle/caches/transforms-4/4359e7b7c4c2a88fd9093acab7c6b261/transformed/jetified-camera-camera2-1.3.1/AndroidManifest.xml:31:17-103
+90                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+90-->[androidx.camera:camera-camera2:1.3.1] /Users/sasmitai/.gradle/caches/transforms-4/4359e7b7c4c2a88fd9093acab7c6b261/transformed/jetified-camera-camera2-1.3.1/AndroidManifest.xml:32:17-86
+91        </service>
+92
+93        <activity
+93-->[androidx.compose.ui:ui-tooling-android:1.6.1] /Users/sasmitai/.gradle/caches/transforms-4/e6727784867213247e970c474379315e/transformed/jetified-ui-tooling-release/AndroidManifest.xml:23:9-25:39
+94            android:name="androidx.compose.ui.tooling.PreviewActivity"
+94-->[androidx.compose.ui:ui-tooling-android:1.6.1] /Users/sasmitai/.gradle/caches/transforms-4/e6727784867213247e970c474379315e/transformed/jetified-ui-tooling-release/AndroidManifest.xml:24:13-71
+95            android:exported="true" />
+95-->[androidx.compose.ui:ui-tooling-android:1.6.1] /Users/sasmitai/.gradle/caches/transforms-4/e6727784867213247e970c474379315e/transformed/jetified-ui-tooling-release/AndroidManifest.xml:25:13-36
+96        <activity
+96-->[androidx.compose.ui:ui-test-manifest:1.6.1] /Users/sasmitai/.gradle/caches/transforms-4/db60d92560643e809f0d1d6af698b747/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:23:9-25:39
+97            android:name="androidx.activity.ComponentActivity"
+97-->[androidx.compose.ui:ui-test-manifest:1.6.1] /Users/sasmitai/.gradle/caches/transforms-4/db60d92560643e809f0d1d6af698b747/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:24:13-63
+98            android:exported="true" />
+98-->[androidx.compose.ui:ui-test-manifest:1.6.1] /Users/sasmitai/.gradle/caches/transforms-4/db60d92560643e809f0d1d6af698b747/transformed/jetified-ui-test-manifest-1.6.1/AndroidManifest.xml:25:13-36
+99
+100        <provider
+100-->[androidx.emoji2:emoji2:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/44779870db5dd2c8f9a94382a3718555/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+101            android:name="androidx.startup.InitializationProvider"
+101-->[androidx.emoji2:emoji2:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/44779870db5dd2c8f9a94382a3718555/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+102            android:authorities="com.droidlink.app.androidx-startup"
+102-->[androidx.emoji2:emoji2:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/44779870db5dd2c8f9a94382a3718555/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+103            android:exported="false" >
+103-->[androidx.emoji2:emoji2:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/44779870db5dd2c8f9a94382a3718555/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+104            <meta-data
+104-->[androidx.emoji2:emoji2:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/44779870db5dd2c8f9a94382a3718555/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+105                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+105-->[androidx.emoji2:emoji2:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/44779870db5dd2c8f9a94382a3718555/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+106                android:value="androidx.startup" />
+106-->[androidx.emoji2:emoji2:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/44779870db5dd2c8f9a94382a3718555/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+107            <meta-data
+107-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/sasmitai/.gradle/caches/transforms-4/03e547a0936c0a2e29849d1279487323/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+108                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+108-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/sasmitai/.gradle/caches/transforms-4/03e547a0936c0a2e29849d1279487323/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+109                android:value="androidx.startup" />
+109-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/sasmitai/.gradle/caches/transforms-4/03e547a0936c0a2e29849d1279487323/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+110            <meta-data
+110-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+111                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+111-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+112                android:value="androidx.startup" />
+112-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+113        </provider>
+114
+115        <receiver
+115-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+116            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+116-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+117            android:directBootAware="false"
+117-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+118            android:enabled="true"
+118-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+119            android:exported="true"
+119-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+120            android:permission="android.permission.DUMP" >
+120-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+121            <intent-filter>
+121-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+122                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+122-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+122-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+123            </intent-filter>
+124            <intent-filter>
+124-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+125                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+125-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+125-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+126            </intent-filter>
+127            <intent-filter>
+127-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+128                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+128-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+128-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+129            </intent-filter>
+130            <intent-filter>
+130-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+131                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+131-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+131-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sasmitai/.gradle/caches/transforms-4/9e9ef29dc63f85165e2e19a094298f96/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+132            </intent-filter>
+133        </receiver>
+134    </application>
+135
+136</manifest>

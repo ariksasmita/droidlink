@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DroidLink</string>
+    <string name="connected">Connected to %s</string>
+    <string name="connecting">Connecting...</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="pair_device">Pair Device</string>
+    <string name="qr_pairing_instructions">Scan the QR code displayed on your Mac</string>
+    <style name="Theme.DroidLink" parent="android:Theme.Material.Light.NoActionBar"/>
+</resources>

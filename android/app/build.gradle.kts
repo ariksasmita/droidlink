@@ -40,8 +40,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    compilerOptions {
-        freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
     buildFeatures {
