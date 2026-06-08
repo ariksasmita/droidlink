@@ -25,11 +25,39 @@ struct ContentView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 
+            case .pairing:
+                VStack(spacing: 16) {
+                    Text("Scan QR code on Android device")
+                        .font(.headline)
+                    
+                    if let qrCode = viewModel.qrCode {
+                        Image(uiImage: qrCode)
+                            .interpolation(.none)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 250, height: 250)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(12)
+                            .shadow(radius: 5)
+                    } else {
+                        ProgressView()
+                            .frame(width: 250, height: 250)
+                    }
+                    
+                    Button("Cancel") {
+                        viewModel.cancelPairing()
+                    }
+                    .buttonStyle(.bordered)
+                }
+                
             case .connecting:
-                ProgressView()
-                Text("Connecting...")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                VStack(spacing: 16) {
+                    ProgressView()
+                    Text("Connecting...")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
                 
             case .connected(let deviceName):
                 Text("Connected to \(deviceName)")
@@ -48,31 +76,81 @@ struct ContentView: View {
 @MainActor
 class ContentViewModel: ObservableObject {
     @Published var state: ConnectionState = .disconnected
+    @Published var qrCode: UIImage? = nil
+    
+    private var certificateGenerator = CertificateGenerator()
+    private var qrCodeGenerator = QRCodeGenerator()
     
     func startPairing() {
-        state = .connecting
+        state = .pairing
         
         Task {
-            // TODO: Implement QR code pairing flow
-            // 1. Generate QR code
-            // 2. Wait for Android to scan
-            // 3. Exchange certificates
-            // 4. Establish TLS connection
-            
-            // For now, simulate connection
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
-            state = .connected("Android Phone")
+            do {
+                // Generate certificate
+                let (certificate, _, fingerprint) = try certificateGenerator.generateCertificate()
+                
+                // Store certificate
+                try certificateGenerator.storeCertificate(certificate)
+                
+                // Get device info
+                let deviceId = getCurrentDeviceId()
+                let deviceName = getCurrentDeviceName()
+                
+                // Generate QR code
+                await MainActor.run {
+                    self.qrCode = self.qrCodeGenerator.generateQRCode(
+                        deviceId: deviceId,
+                        deviceName: deviceName,
+                        certificateFingerprint: fingerprint
+                    )
+                }
+                
+                // Wait for Android to scan (timeout after 5 minutes)
+                try await Task.sleep(nanoseconds: 300_000_000_000)
+                
+                // If no scan, cancel pairing
+                await MainActor.run {
+                    self.state = .disconnected
+                    self.qrCode = nil
+                }
+                
+            } catch {
+                print("Error generating certificate: \(error)")
+                await MainActor.run {
+                    self.state = .disconnected
+                    self.qrCode = nil
+                }
+            }
         }
+    }
+    
+    func cancelPairing() {
+        state = .disconnected
+        qrCode = nil
     }
     
     func disconnect() {
         // TODO: Implement disconnect
         state = .disconnected
     }
+    
+    private func getCurrentDeviceId() -> String {
+        var size: Int = 0
+        sysctlbyname("hw.uuid", nil, &size, nil, 0)
+        var uuid = [CChar](repeating: 0, count: size)
+        sysctlbyname("hw.uuid", &uuid, &size, nil, 0)
+        return String(cString: uuid)
+    }
+    
+    private func getCurrentDeviceName() -> String {
+        let host = ProcessInfo.processInfo.hostName
+        return Host.current().localizedName ?? host
+    }
 }
 
 enum ConnectionState {
     case disconnected
+    case pairing
     case connecting
     case connected(String) // device name
 }

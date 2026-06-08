@@ -44,14 +44,59 @@ fun MainScreen(
                         Text("Pair Device")
                     }
                 }
+                is MainUiState.Scanning -> {
+                    CircularProgressIndicator()
+                    Text("Preparing to scan...")
+                }
+                is MainUiState.ReadyToScan -> {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("Ready to scan QR code")
+                        Text("Point camera at Mac QR code")
+                            .font(.caption)
+                            .foregroundStyle(MaterialTheme.colorScheme.secondary)
+                        
+                        // TODO: Add QR code scanner UI
+                        // For now, simulate scan with test button
+                        Button(
+                            onClick = {
+                                // Simulate QR scan with test data
+                                val testQR = """{
+                                    "version": "1.0.0",
+                                    "deviceId": "test-mac-123",
+                                    "deviceName": "MacBook Pro",
+                                    "certificateFingerprint": "aa:bb:cc:dd",
+                                    "timestamp": ${System.currentTimeMillis() / 1000}
+                                }""".trimIndent()
+                                viewModel.onQRCodeScanned(testQR)
+                            }
+                        ) {
+                            Text("Simulate QR Scan")
+                        }
+                        
+                        Button(
+                            onClick = { viewModel.cancelPairing() },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.secondary
+                            )
+                        ) {
+                            Text("Cancel")
+                        }
+                    }
+                }
                 is MainUiState.Connecting -> {
                     CircularProgressIndicator()
-                    Text("Connecting...")
+                    Text("Connecting to ${state.deviceName}...")
                 }
                 is MainUiState.Connected -> {
                     Text("Connected to ${state.deviceName}")
                     Button(onClick = { viewModel.disconnect() }) {
                         Text("Disconnect")
+                    }
+                }
+                is MainUiState.Error -> {
+                    Text(state.message, color = MaterialTheme.colorScheme.error)
+                    Button(onClick = { viewModel.cancelPairing() }) {
+                        Text("Back")
                     }
                 }
             }
