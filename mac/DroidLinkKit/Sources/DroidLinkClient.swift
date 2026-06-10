@@ -17,12 +17,12 @@ public final class DroidLinkClient {
     }
     
     /// Send message to device
-    public func send(_ message: DroidLinkMessage) async throws {
+    func send(_ message: Droidlink_Protocol_DroidLinkMessage) async throws {
         // TODO: Implement message sending
     }
     
     /// Receive message stream
-    public func messageStream() -> AsyncStream<DroidLinkMessage> {
+    func messageStream() -> AsyncStream<Droidlink_Protocol_DroidLinkMessage> {
         // TODO: Implement message stream
         return AsyncStream { _ in }
     }

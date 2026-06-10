@@ -20,34 +20,37 @@ public class CertificateGenerator {
         let deviceId = UUID().uuidString
         let commonName = "DroidLink-\(deviceId)"
         
-        // Create key pair
-        var publicKey: SecKey?
-        var privateKey: SecKey?
+        // Create key pair using modern API
+        let privateKeyAttributes: [String: Any] = [
+            kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
+            kSecAttrKeySizeInBits as String: 2048,
+            kSecAttrIsPermanent as String: false
+        ]
+        
+        let publicKeyAttributes: [String: Any] = [
+            kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
+            kSecAttrKeySizeInBits as String: 2048
+        ]
         
         let keyPairAttributes: [String: Any] = [
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
             kSecAttrKeySizeInBits as String: 2048,
-            kSecPrivateKeyAttrs as String: [
-                kSecAttrIsPermanent as String: false
-            ]
+            kSecPrivateKeyAttrs as String: privateKeyAttributes,
+            kSecPublicKeyAttrs as String: publicKeyAttributes
         ]
         
-        let status = SecKeyGeneratePair(
-            keyPairAttributes as CFDictionary,
-            &publicKey,
-            &privateKey
-        )
+        guard let privateKey = SecKeyCreateRandomKey(keyPairAttributes as CFDictionary, nil) else {
+            throw CertificateError.generationFailed
+        }
         
-        guard status == errSecSuccess,
-              let pubKey = publicKey,
-              let privKey = privateKey else {
+        guard let publicKey = SecKeyCopyPublicKey(privateKey) else {
             throw CertificateError.generationFailed
         }
         
         // Create certificate
         let certificate = try createCertificate(
-            publicKey: pubKey,
-            privateKey: privKey,
+            publicKey: publicKey,
+            privateKey: privateKey,
             commonName: commonName,
             deviceId: deviceId
         )
@@ -55,7 +58,7 @@ public class CertificateGenerator {
         // Calculate fingerprint
         let fingerprint = calculateFingerprint(certificate: certificate)
         
-        return (certificate, privKey, fingerprint)
+        return (certificate, privateKey, fingerprint)
     }
     
     /// Store certificate in Keychain
@@ -90,11 +93,12 @@ public class CertificateGenerator {
         var result: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
         
-        guard status == errSecSuccess,
-              let certificate = result as? SecCertificate else {
+        guard status == errSecSuccess, let result else {
             throw CertificateError.retrievalFailed(status)
         }
         
+        // CFTypeRef to SecCertificate bridge
+        let certificate = result as! SecCertificate
         return certificate
     }
     
@@ -112,7 +116,17 @@ public class CertificateGenerator {
         // In a real implementation, you would use Certificate Signing Request (CSR)
         // or a proper certificate library. For MVP, we'll use a simplified approach.
         
-        throw CertificateError.generationFailed
+        // For now, create a dummy certificate for testing
+        let certData = "DroidLinkCertificate-\(commonName)".data(using: .utf8)!
+        
+        var err: OSStatus = noErr
+        let cert = SecCertificateCreateWithData(nil, certData as CFData)
+        
+        guard let certificate = cert else {
+            throw CertificateError.generationFailed
+        }
+        
+        return certificate
     }
     
     private func calculateFingerprint(certificate: SecCertificate) -> String {

@@ -3,6 +3,7 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import SwiftUI
 import CryptoKit
+import AppKit
 
 /// QR code generator for device pairing
 public class QRCodeGenerator {
@@ -21,7 +22,7 @@ public class QRCodeGenerator {
         deviceId: String,
         deviceName: String,
         certificateFingerprint: String
-    ) -> UIImage? {
+    ) -> NSImage? {
         // Create pairing token
         let token = PairingToken(
             version: "1.0.0",
@@ -56,7 +57,7 @@ public class QRCodeGenerator {
             return nil
         }
         
-        return UIImage(cgImage: cgImage)
+        return NSImage(cgImage: cgImage, size: NSSize(width: 200, height: 200))
     }
 }
 
