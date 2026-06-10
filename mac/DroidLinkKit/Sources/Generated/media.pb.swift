@@ -105,6 +105,49 @@ nonisolated enum Droidlink_Protocol_AudioCodec: SwiftProtobuf.Enum, Swift.CaseIt
 
 }
 
+/// Video codec (defined here for Media messages)
+nonisolated enum Droidlink_Protocol_MediaVideoCodec: SwiftProtobuf.Enum, Swift.CaseIterable {
+  typealias RawValue = Int
+  case mediaCodecUnknown // = 0
+
+  /// H.264 baseline
+  case mediaH264 // = 1
+
+  /// H.265/HEVC (future)
+  case mediaH265 // = 2
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .mediaCodecUnknown
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .mediaCodecUnknown
+    case 1: self = .mediaH264
+    case 2: self = .mediaH265
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .mediaCodecUnknown: return 0
+    case .mediaH264: return 1
+    case .mediaH265: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static let allCases: [Droidlink_Protocol_MediaVideoCodec] = [
+    .mediaCodecUnknown,
+    .mediaH264,
+    .mediaH265,
+  ]
+
+}
+
 /// Virtual webcam and microphone messages
 nonisolated struct Droidlink_Protocol_MediaMessage: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -237,7 +280,7 @@ nonisolated struct Droidlink_Protocol_CameraConfig: Sendable {
 
   var facing: Droidlink_Protocol_CameraFacing = .unknown
 
-  var codec: Droidlink_Protocol_VideoCodec = .codecUnknown
+  var codec: Droidlink_Protocol_MediaVideoCodec = .mediaCodecUnknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -273,6 +316,10 @@ nonisolated extension Droidlink_Protocol_CameraFacing: SwiftProtobuf._ProtoNameP
 
 nonisolated extension Droidlink_Protocol_AudioCodec: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0AUDIO_CODEC_UNKNOWN\0\u{1}PCM\0\u{1}AAC\0")
+}
+
+nonisolated extension Droidlink_Protocol_MediaVideoCodec: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0MEDIA_CODEC_UNKNOWN\0\u{1}MEDIA_H264\0\u{1}MEDIA_H265\0")
 }
 
 nonisolated extension Droidlink_Protocol_MediaMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -391,7 +438,7 @@ nonisolated extension Droidlink_Protocol_CameraConfig: SwiftProtobuf.Message, Sw
     if self.facing != .unknown {
       try visitor.visitSingularEnumField(value: self.facing, fieldNumber: 4)
     }
-    if self.codec != .codecUnknown {
+    if self.codec != .mediaCodecUnknown {
       try visitor.visitSingularEnumField(value: self.codec, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)

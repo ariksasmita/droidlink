@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package droidlink.protocol;
+
+option java_outer_classname = "NotificationProto";
+
+// Notification mirroring messages
+message NotificationMessage {
+  enum NotificationEventType {
+    NOTIF_UNKNOWN = 0;
+    POSTED = 1;           // New notification
+    UPDATED = 2;          // Existing notification updated
+    REMOVED = 3;          // Notification removed
+    ACTION_CLICKED = 4;   // User tapped action
+  }
+
+  NotificationEventType event = 1;
+
+  // For POSTED, UPDATED
+  NotificationData notification = 2;
+
+  // For REMOVED
+  string notification_id = 3;
+
+  // For ACTION_CLICKED
+  string action_id = 4;
+  string action_reply_text = 5;    // For reply actions
+}
+
+// Notification data from Android
+message NotificationData {
+  string id = 1;                    // Android notification ID
+  string package_name = 2;          // e.g., "com.whatsapp"
+  string app_name = 3;              // e.g., "WhatsApp"
+  string title = 4;
+  string text = 5;
+  repeated NotificationAction actions = 6;
+  int64 timestamp = 7;
+  bytes icon = 8;                   // App icon (PNG, max 100KB)
+  bool is_clearable = 9;           // Can be dismissed
+  string category = 10;            // e.g., "msg", "call", "alarm"
+  map<string, string> extras = 11; // Additional metadata
+}
+
+// Notification action button
+message NotificationAction {
+  string id = 1;
+  string label = 2;                 // e.g., "Reply", "Dismiss"
+  ActionType type = 3;
+}
+
+enum ActionType {
+  ACTION_UNKNOWN = 0;
+  REPLY = 1;                       // Text input action
+  DISMISS = 2;                     // Dismiss notification
+  CUSTOM = 3;                      // App-specific action
+}

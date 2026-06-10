@@ -93,7 +93,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:2.3.7")
 
     // Protocol Buffers
-    implementation("com.google.protobuf:protobuf-kotlin:3.25.3")
+    implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.3")
 
     // Permissions
     implementation("com.google.accompanist:accompanist-permissions:0.34.0")

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package droidlink.protocol;
+
+option java_outer_classname = "ClipboardProto";
+
+// Clipboard synchronization messages
+message ClipboardMessage {
+  ClipboardData data = 1;
+  string source_device_id = 2;
+  bool is_remote = 3;               // True if from other device
+}
+
+// Clipboard data (text, image, URL)
+message ClipboardData {
+  DataType type = 1;
+  string text = 2;
+  bytes image_data = 3;             // PNG or JPEG
+  string url = 4;
+  int64 timestamp = 5;              // When copied
+}
+
+enum DataType {
+  DATA_UNKNOWN = 0;
+  DATA_TEXT = 1;
+  DATA_IMAGE = 2;
+  DATA_URL = 3;
+}

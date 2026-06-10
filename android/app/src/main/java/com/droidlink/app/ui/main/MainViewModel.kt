@@ -55,7 +55,11 @@ class MainViewModel @Inject constructor(
                 when (validationResult) {
                     is ValidationResult.Valid -> {
                         // Extract device info
-                        val deviceInfo = com.droidlink.core.security.extractDeviceInfo(token)
+                        val deviceInfo = com.droidlink.core.security.DeviceInfo(
+                            deviceId = token.deviceId,
+                            deviceName = token.deviceName,
+                            certificateFingerprint = token.certificateFingerprint
+                        )
                         
                         // Store paired device info
                         // TODO: Store in database

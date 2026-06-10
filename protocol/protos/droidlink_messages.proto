@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package droidlink.protocol;
+
+import "clipboard_messages.proto";
+import "notification_messages.proto";
+import "file_messages.proto";
+import "screen_messages.proto";
+import "media_messages.proto";
+import "call_messages.proto";
+import "system_messages.proto";
+
+// Root message type for all DroidLink communication
+message DroidLinkMessage {
+  uint64 id = 1;                    // Unique message ID (timestamp-based)
+  uint64 timestamp = 2;             // Unix timestamp (milliseconds)
+  MessageType type = 3;             // Message type
+
+  oneof payload {
+    ClipboardMessage clipboard = 10;
+    NotificationMessage notification = 11;
+    FileMessage file = 12;
+    ScreenMessage screen = 13;
+    MediaMessage media = 14;
+    CallMessage call = 15;
+    SystemMessage system = 16;
+  }
+}
+
+enum MessageType {
+  MSG_UNKNOWN = 0;
+  CLIPBOARD_SYNC = 1;
+  NOTIFICATION_MIRROR = 2;
+  FILE_TRANSFER = 3;
+  SCREEN_STREAM = 4;
+  WEBCAM_STREAM = 5;
+  AUDIO_STREAM = 6;
+  CALL_EVENT = 7;
+  SYSTEM = 8;
+}
