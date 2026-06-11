@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.droidlink.app.ui.camera.CameraPermissionWrapper
 import com.droidlink.app.ui.main.MainViewModel
 
 @Composable
@@ -50,31 +51,35 @@ fun MainScreen(
                     Text("Preparing to scan...")
                 }
                 is MainUiState.ReadyToScan -> {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("Ready to scan QR code")
-                        Text("Point camera at Mac QR code",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.secondary
+                    android.util.Log.d("MainScreen", "ReadyToScan state: showing camera")
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        // Camera preview with QR detection
+                        CameraPermissionWrapper(
+                            onQrCodeDetected = { qrData ->
+                                viewModel.onQRCodeScanned(qrData)
+                            },
+                            modifier = Modifier.fillMaxSize()
                         )
                         
-                        // TODO: Add QR code scanner UI
-                        // For now, simulate scan with test button
-                        Button(
-                            onClick = {
-                                // Simulate QR scan with Mac-like data
-                                val timestamp = System.currentTimeMillis() / 1000
-                                val randomFingerprint = (1..64).map { ('a'..'f').random() }.joinToString("")
-                                val deviceId = "mac-device-$timestamp"
-                                val deviceName = "Test MacBook Pro"
-                                val testQR = "{\"version\": \"1.0.0\", \"deviceId\": \"$deviceId\", \"deviceName\": \"$deviceName\", \"certificateFingerprint\": \"$randomFingerprint\", \"timestamp\": $timestamp}"
-                                viewModel.onQRCodeScanned(testQR)
-                            }
+                        // Overlay UI
+                        Column(
+                            modifier = Modifier
+                                .align(Alignment.TopCenter)
+                                .padding(16.dp)
                         ) {
-                            Text("Simulate QR Scan")
+                            Text(
+                                "Point camera at Mac QR code",
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
                         }
                         
+                        // Cancel button at bottom
                         Button(
                             onClick = { viewModel.cancelPairing() },
+                            modifier = Modifier
+                                .align(Alignment.BottomCenter)
+                                .padding(16.dp),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.secondary
                             )

@@ -31,12 +31,12 @@ class MainViewModel : ViewModel() {
     private val qrCodeParser = QRCodeParser()
 
     fun startPairing() {
-        Log.d("DroidLink", "startPairing called")
+        android.util.Log.d("MainViewModel", "startPairing called")
         viewModelScope.launch {
-            Log.d("DroidLink", "State: Scanning")
+            android.util.Log.d("MainViewModel", "State: Scanning")
             _uiState.value = MainUiState.Scanning
             kotlinx.coroutines.delay(1000)
-            Log.d("DroidLink", "State: ReadyToScan")
+            android.util.Log.d("MainViewModel", "State: ReadyToScan")
             _uiState.value = MainUiState.ReadyToScan
         }
     }
