@@ -20,8 +20,6 @@ import dagger.hilt.processor.internal.definecomponent.codegen._dagger_hilt_compo
 import hilt_aggregated_deps._com_droidlink_app_DroidLinkApplication_GeneratedInjector;
 import hilt_aggregated_deps._com_droidlink_app_MainActivity_GeneratedInjector;
 import hilt_aggregated_deps._com_droidlink_app_di_SecurityModule;
-import hilt_aggregated_deps._com_droidlink_app_ui_main_MainViewModel_HiltModules_BindsModule;
-import hilt_aggregated_deps._com_droidlink_app_ui_main_MainViewModel_HiltModules_KeyModule;
 import hilt_aggregated_deps._dagger_hilt_android_flags_FragmentGetContextFix_FragmentGetContextFixEntryPoint;
 import hilt_aggregated_deps._dagger_hilt_android_flags_HiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule;
 import hilt_aggregated_deps._dagger_hilt_android_internal_lifecycle_DefaultViewModelFactories_ActivityEntryPoint;
@@ -65,8 +63,6 @@ import hilt_aggregated_deps._dagger_hilt_android_internal_modules_HiltWrapper_Ac
         _com_droidlink_app_DroidLinkApplication_GeneratedInjector.class,
         _com_droidlink_app_MainActivity_GeneratedInjector.class,
         _com_droidlink_app_di_SecurityModule.class,
-        _com_droidlink_app_ui_main_MainViewModel_HiltModules_BindsModule.class,
-        _com_droidlink_app_ui_main_MainViewModel_HiltModules_KeyModule.class,
         _dagger_hilt_android_flags_FragmentGetContextFix_FragmentGetContextFixEntryPoint.class,
         _dagger_hilt_android_flags_HiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule.class,
         _dagger_hilt_android_internal_lifecycle_DefaultViewModelFactories_ActivityEntryPoint.class,

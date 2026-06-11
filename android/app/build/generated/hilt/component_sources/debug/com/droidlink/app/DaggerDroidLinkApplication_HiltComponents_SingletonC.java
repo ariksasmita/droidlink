@@ -6,12 +6,6 @@ import android.view.View;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
-import com.droidlink.app.di.SecurityModule_ProvideCertificateGeneratorFactory;
-import com.droidlink.app.di.SecurityModule_ProvideQRCodeParserFactory;
-import com.droidlink.app.ui.main.MainViewModel;
-import com.droidlink.app.ui.main.MainViewModel_HiltModules;
-import com.droidlink.core.security.CertificateGenerator;
-import com.droidlink.core.security.QRCodeParser;
 import dagger.hilt.android.ActivityRetainedLifecycle;
 import dagger.hilt.android.ViewModelLifecycle;
 import dagger.hilt.android.internal.builders.ActivityComponentBuilder;
@@ -28,15 +22,12 @@ import dagger.hilt.android.internal.managers.SavedStateHandleHolder;
 import dagger.hilt.android.internal.modules.ApplicationContextModule;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.DoubleCheck;
-import dagger.internal.IdentifierNameString;
-import dagger.internal.KeepFieldType;
-import dagger.internal.LazyClassKeyMap;
 import dagger.internal.Preconditions;
-import dagger.internal.Provider;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.Generated;
+import javax.inject.Provider;
 
 @DaggerGenerated
 @Generated(
@@ -370,12 +361,12 @@ public final class DaggerDroidLinkApplication_HiltComponents_SingletonC {
 
     @Override
     public DefaultViewModelFactories.InternalFactoryFactory getHiltInternalFactoryFactory() {
-      return DefaultViewModelFactories_InternalFactoryFactory_Factory.newInstance(getViewModelKeys(), new ViewModelCBuilder(singletonCImpl, activityRetainedCImpl));
+      return DefaultViewModelFactories_InternalFactoryFactory_Factory.newInstance(Collections.<Class<?>, Boolean>emptyMap(), new ViewModelCBuilder(singletonCImpl, activityRetainedCImpl));
     }
 
     @Override
     public Map<Class<?>, Boolean> getViewModelKeys() {
-      return LazyClassKeyMap.<Boolean>of(Collections.<String, Boolean>singletonMap(LazyClassKeyProvider.com_droidlink_app_ui_main_MainViewModel, MainViewModel_HiltModules.KeyModule.provide()));
+      return Collections.<Class<?>, Boolean>emptyMap();
     }
 
     @Override
@@ -392,14 +383,6 @@ public final class DaggerDroidLinkApplication_HiltComponents_SingletonC {
     public ViewComponentBuilder viewComponentBuilder() {
       return new ViewCBuilder(singletonCImpl, activityRetainedCImpl, activityCImpl);
     }
-
-    @IdentifierNameString
-    private static final class LazyClassKeyProvider {
-      static String com_droidlink_app_ui_main_MainViewModel = "com.droidlink.app.ui.main.MainViewModel";
-
-      @KeepFieldType
-      MainViewModel com_droidlink_app_ui_main_MainViewModel2;
-    }
   }
 
   private static final class ViewModelCImpl extends DroidLinkApplication_HiltComponents.ViewModelC {
@@ -409,69 +392,23 @@ public final class DaggerDroidLinkApplication_HiltComponents_SingletonC {
 
     private final ViewModelCImpl viewModelCImpl = this;
 
-    private Provider<MainViewModel> mainViewModelProvider;
-
     private ViewModelCImpl(SingletonCImpl singletonCImpl,
         ActivityRetainedCImpl activityRetainedCImpl, SavedStateHandle savedStateHandleParam,
         ViewModelLifecycle viewModelLifecycleParam) {
       this.singletonCImpl = singletonCImpl;
       this.activityRetainedCImpl = activityRetainedCImpl;
 
-      initialize(savedStateHandleParam, viewModelLifecycleParam);
 
-    }
-
-    @SuppressWarnings("unchecked")
-    private void initialize(final SavedStateHandle savedStateHandleParam,
-        final ViewModelLifecycle viewModelLifecycleParam) {
-      this.mainViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
     }
 
     @Override
-    public Map<Class<?>, javax.inject.Provider<ViewModel>> getHiltViewModelMap() {
-      return LazyClassKeyMap.<javax.inject.Provider<ViewModel>>of(Collections.<String, javax.inject.Provider<ViewModel>>singletonMap(LazyClassKeyProvider.com_droidlink_app_ui_main_MainViewModel, ((Provider) mainViewModelProvider)));
+    public Map<Class<?>, Provider<ViewModel>> getHiltViewModelMap() {
+      return Collections.<Class<?>, Provider<ViewModel>>emptyMap();
     }
 
     @Override
     public Map<Class<?>, Object> getHiltViewModelAssistedMap() {
       return Collections.<Class<?>, Object>emptyMap();
-    }
-
-    @IdentifierNameString
-    private static final class LazyClassKeyProvider {
-      static String com_droidlink_app_ui_main_MainViewModel = "com.droidlink.app.ui.main.MainViewModel";
-
-      @KeepFieldType
-      MainViewModel com_droidlink_app_ui_main_MainViewModel2;
-    }
-
-    private static final class SwitchingProvider<T> implements Provider<T> {
-      private final SingletonCImpl singletonCImpl;
-
-      private final ActivityRetainedCImpl activityRetainedCImpl;
-
-      private final ViewModelCImpl viewModelCImpl;
-
-      private final int id;
-
-      SwitchingProvider(SingletonCImpl singletonCImpl, ActivityRetainedCImpl activityRetainedCImpl,
-          ViewModelCImpl viewModelCImpl, int id) {
-        this.singletonCImpl = singletonCImpl;
-        this.activityRetainedCImpl = activityRetainedCImpl;
-        this.viewModelCImpl = viewModelCImpl;
-        this.id = id;
-      }
-
-      @SuppressWarnings("unchecked")
-      @Override
-      public T get() {
-        switch (id) {
-          case 0: // com.droidlink.app.ui.main.MainViewModel 
-          return (T) new MainViewModel(singletonCImpl.provideCertificateGeneratorProvider.get(), singletonCImpl.provideQRCodeParserProvider.get());
-
-          default: throw new AssertionError(id);
-        }
-      }
     }
   }
 
@@ -480,7 +417,7 @@ public final class DaggerDroidLinkApplication_HiltComponents_SingletonC {
 
     private final ActivityRetainedCImpl activityRetainedCImpl = this;
 
-    private Provider<ActivityRetainedLifecycle> provideActivityRetainedLifecycleProvider;
+    private dagger.internal.Provider<ActivityRetainedLifecycle> provideActivityRetainedLifecycleProvider;
 
     private ActivityRetainedCImpl(SingletonCImpl singletonCImpl,
         SavedStateHandleHolder savedStateHandleHolderParam) {
@@ -505,7 +442,7 @@ public final class DaggerDroidLinkApplication_HiltComponents_SingletonC {
       return provideActivityRetainedLifecycleProvider.get();
     }
 
-    private static final class SwitchingProvider<T> implements Provider<T> {
+    private static final class SwitchingProvider<T> implements dagger.internal.Provider<T> {
       private final SingletonCImpl singletonCImpl;
 
       private final ActivityRetainedCImpl activityRetainedCImpl;
@@ -547,20 +484,9 @@ public final class DaggerDroidLinkApplication_HiltComponents_SingletonC {
   private static final class SingletonCImpl extends DroidLinkApplication_HiltComponents.SingletonC {
     private final SingletonCImpl singletonCImpl = this;
 
-    private Provider<CertificateGenerator> provideCertificateGeneratorProvider;
-
-    private Provider<QRCodeParser> provideQRCodeParserProvider;
-
     private SingletonCImpl() {
 
-      initialize();
 
-    }
-
-    @SuppressWarnings("unchecked")
-    private void initialize() {
-      this.provideCertificateGeneratorProvider = DoubleCheck.provider(new SwitchingProvider<CertificateGenerator>(singletonCImpl, 0));
-      this.provideQRCodeParserProvider = DoubleCheck.provider(new SwitchingProvider<QRCodeParser>(singletonCImpl, 1));
     }
 
     @Override
@@ -580,31 +506,6 @@ public final class DaggerDroidLinkApplication_HiltComponents_SingletonC {
     @Override
     public ServiceComponentBuilder serviceComponentBuilder() {
       return new ServiceCBuilder(singletonCImpl);
-    }
-
-    private static final class SwitchingProvider<T> implements Provider<T> {
-      private final SingletonCImpl singletonCImpl;
-
-      private final int id;
-
-      SwitchingProvider(SingletonCImpl singletonCImpl, int id) {
-        this.singletonCImpl = singletonCImpl;
-        this.id = id;
-      }
-
-      @SuppressWarnings("unchecked")
-      @Override
-      public T get() {
-        switch (id) {
-          case 0: // com.droidlink.core.security.CertificateGenerator 
-          return (T) SecurityModule_ProvideCertificateGeneratorFactory.provideCertificateGenerator();
-
-          case 1: // com.droidlink.core.security.QRCodeParser 
-          return (T) SecurityModule_ProvideQRCodeParserFactory.provideQRCodeParser();
-
-          default: throw new AssertionError(id);
-        }
-      }
     }
   }
 }

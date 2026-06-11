@@ -25,7 +25,8 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftProtobuf", package: "swift-protobuf")
             ],
-            path: "DroidLinkKit/Sources"
+            path: "DroidLinkKit/Sources",
+            exclude: ["Generated"]
         ),
     ]
 )

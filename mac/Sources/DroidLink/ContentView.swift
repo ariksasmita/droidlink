@@ -55,15 +55,27 @@ struct ContentView: View {
                 }
                 
             case .connecting:
-                ProgressView("Connecting...")
+                VStack(spacing: 16) {
+                    ProgressView()
+                    Text("Connecting...")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
                 
             case .connected(let deviceName):
-                Text("Connected to \(deviceName)")
-                    .font(.headline)
-                Button("Disconnect") {
-                    viewModel.disconnect()
+                VStack {
+                    Text("Connected to \(deviceName)")
+                        .font(.headline)
+                    if let message = viewModel.lastMessage {
+                        Text("Last message: \(message)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    Button("Disconnect") {
+                        viewModel.disconnect()
+                    }
+                    .buttonStyle(.bordered)
                 }
-                .buttonStyle(.bordered)
             }
         }
         .padding()
@@ -75,37 +87,64 @@ struct ContentView: View {
 class ContentViewModel: ObservableObject {
     @Published var state: ConnectionState = .disconnected
     @Published var qrCode: NSImage? = nil
+    @Published var lastMessage: String? = nil
+    
+    private var tcpServer: TcpServer?
+    private var qrCodeGenerator = QRCodeGenerator()
+    
+    init() {
+        print("🎨 ContentViewModel initialized")
+        // Auto-start pairing for testing
+        Task {
+            try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
+            startPairing()
+        }
+    }
     
     func startPairing() {
+        print("🚀 Starting pairing process...")
         state = .pairing
         qrCode = nil
         
         Task {
-            // Simplified - just generate QR code directly
-            let generator = QRCodeGenerator()
+            // Start TCP server
+            do {
+                print("🌐 Starting TCP server on port 9999...")
+                tcpServer = TcpServer()
+                try tcpServer?.start(port: 9999)
+                print("✅ TCP server started")
+            } catch {
+                print("❌ Failed to start server: \(error)")
+            }
+            
+            // Generate QR code
             let deviceId = UUID().uuidString
             let deviceName = Host.current().localizedName ?? "Mac"
             let fingerprint = String((0..<64).map { _ in "0123456789abcdef".randomElement()! })
             
-            let qr = generator.generateQRCode(
+            let qr = qrCodeGenerator.generateQRCode(
                 deviceId: deviceId,
                 deviceName: deviceName,
                 certificateFingerprint: fingerprint
             )
             
-            await MainActor.run {
-                self.qrCode = qr
-            }
+            self.qrCode = qr
+            print("✅ QR code ready for scanning")
         }
     }
     
     func cancelPairing() {
+        print("❌ Pairing cancelled")
         state = .disconnected
         qrCode = nil
+        lastMessage = nil
+        tcpServer?.stop()
     }
     
     func disconnect() {
+        print("🔌 Disconnecting")
         state = .disconnected
+        tcpServer?.stop()
     }
 }
 

@@ -1,7 +1,6 @@
 package com.droidlink.app;
 
 import com.droidlink.app.di.SecurityModule;
-import com.droidlink.app.ui.main.MainViewModel_HiltModules;
 import dagger.Binds;
 import dagger.Component;
 import dagger.Module;
@@ -156,8 +155,7 @@ public final class DroidLinkApplication_HiltComponents {
           ActivityCBuilderModule.class,
           ViewModelCBuilderModule.class,
           HiltWrapper_ActivityRetainedComponentManager_LifecycleModule.class,
-          HiltWrapper_SavedStateHandleModule.class,
-          MainViewModel_HiltModules.KeyModule.class
+          HiltWrapper_SavedStateHandleModule.class
       }
   )
   @ActivityRetainedScoped
@@ -192,10 +190,7 @@ public final class DroidLinkApplication_HiltComponents {
   }
 
   @Subcomponent(
-      modules = {
-          HiltWrapper_HiltViewModelFactory_ViewModelModule.class,
-          MainViewModel_HiltModules.BindsModule.class
-      }
+      modules = HiltWrapper_HiltViewModelFactory_ViewModelModule.class
   )
   @ViewModelScoped
   public abstract static class ViewModelC implements ViewModelComponent,
