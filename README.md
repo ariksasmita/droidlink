@@ -5,6 +5,23 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Android](https://img.shields.io/badge/Android-10%2B-green.svg)](https://developer.android.com)
 [![macOS](https://img.shields.io/badge/macOS-14%2B-green.svg)](https://www.apple.com/macos)
+[![Status: 90% Complete](https://img.shields.io/badge/Status-90%25%20Complete-yellow.svg)](https://github.com/ariksasmita/droidlink)
+[![TCP: Working](https://img.shields.io/badge/TCP-Working-success.svg)](https://github.com/ariksasmita/droidlink)
+
+---
+
+## 🎉 Latest Update: TCP Transport Layer Working!
+
+**✅ Successfully implemented and tested bidirectional TCP communication between Android and Mac!**
+
+```
+Android → Mac: "Hello from Test MacBook Pro!"
+Mac → Android: "Hello from Mac! Received: Hello from Test MacBook Pro!"
+```
+
+**Status**: 90% complete — Core cross-platform communication proven and functional!
+
+See [TCP_SUCCESS.md](TCP_SUCCESS.md) for test results and implementation details.
 
 ---
 
