@@ -18,6 +18,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:security"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
     implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.3")
 }

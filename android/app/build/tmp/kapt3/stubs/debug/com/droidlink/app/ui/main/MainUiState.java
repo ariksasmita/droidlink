@@ -2,7 +2,7 @@ package com.droidlink.app.ui.main;
 
 import android.util.Log;
 import androidx.lifecycle.ViewModel;
-import com.droidlink.core.network.TcpClient;
+import com.droidlink.core.network.TlsTcpClient;
 import com.droidlink.core.security.DeviceInfo;
 import com.droidlink.core.security.QRCodeParser;
 import com.droidlink.core.security.ValidationResult;

@@ -89,7 +89,7 @@ class ContentViewModel: ObservableObject {
     @Published var qrCode: NSImage? = nil
     @Published var lastMessage: String? = nil
     
-    private var tcpServer: TcpServer?
+    private var tlsServer: TlsTcpServer?
     private var qrCodeGenerator = QRCodeGenerator()
     
     init() {
@@ -107,18 +107,20 @@ class ContentViewModel: ObservableObject {
         qrCode = nil
         
         Task {
-            // Start TCP server
+            // Generate device ID first
+            let deviceId = UUID().uuidString
+            
+            // Start TLS server
             do {
-                print("🌐 Starting TCP server on port 9999...")
-                tcpServer = TcpServer()
-                try tcpServer?.start(port: 9999)
-                print("✅ TCP server started")
+                print("🌐 Starting TLS server on port 9999...")
+                tlsServer = TlsTcpServer()
+                try tlsServer?.start(port: 9999, deviceId: deviceId)
+                print("✅ TLS server started")
             } catch {
                 print("❌ Failed to start server: \(error)")
             }
             
             // Generate QR code
-            let deviceId = UUID().uuidString
             let deviceName = Host.current().localizedName ?? "Mac"
             let fingerprint = String((0..<64).map { _ in "0123456789abcdef".randomElement()! })
             
@@ -138,13 +140,13 @@ class ContentViewModel: ObservableObject {
         state = .disconnected
         qrCode = nil
         lastMessage = nil
-        tcpServer?.stop()
+        tlsServer?.stop()
     }
     
     func disconnect() {
         print("🔌 Disconnecting")
         state = .disconnected
-        tcpServer?.stop()
+        tlsServer?.stop()
     }
 }
 

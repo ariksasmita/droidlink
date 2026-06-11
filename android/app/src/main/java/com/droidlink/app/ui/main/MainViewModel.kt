@@ -3,7 +3,7 @@ package com.droidlink.app.ui.main
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.droidlink.core.network.TcpClient
+import com.droidlink.core.network.TlsTcpClient
 import com.droidlink.core.security.DeviceInfo
 import com.droidlink.core.security.QRCodeParser
 import com.droidlink.core.security.ValidationResult
@@ -27,7 +27,7 @@ class MainViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<MainUiState>(MainUiState.Disconnected)
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
-    private var tcpClient: TcpClient? = null
+    private var tlsClient: TlsTcpClient? = null
     private val qrCodeParser = QRCodeParser()
 
     fun startPairing() {
@@ -61,17 +61,21 @@ class MainViewModel : ViewModel() {
                         // Update UI to show we're connecting to the actual device
                         _uiState.value = MainUiState.Connecting(deviceInfo.deviceName)
                         
-                        // Try to connect via TCP
+                        // Try to connect via TLS
                         try {
                             // Connect to Mac's IP (hardcoded for testing)
-                            tcpClient = TcpClient("172.27.30.163", 9999)
-                            tcpClient?.connect()
+                            tlsClient = TlsTcpClient(
+                                "172.27.30.163",
+                                9999,
+                                serverCertificateFingerprint = deviceInfo.certificateFingerprint
+                            )
+                            tlsClient?.connect()
                             
                             // Send a hello message
-                            tcpClient?.send("Hello from ${deviceInfo.deviceName}!")
+                            tlsClient?.send("Hello from ${deviceInfo.deviceName}!")
                             
                             // Wait for response
-                            val response = tcpClient?.receive()
+                            val response = tlsClient?.receive()
                             println("📩 Server response: $response")
                             
                             // Simulate connection delay
@@ -102,14 +106,14 @@ class MainViewModel : ViewModel() {
 
     fun disconnect() {
         viewModelScope.launch {
-            tcpClient?.close()
+            tlsClient?.close()
             _uiState.value = MainUiState.Disconnected
         }
     }
 
     fun cancelPairing() {
         viewModelScope.launch {
-            tcpClient?.close()
+            tlsClient?.close()
             _uiState.value = MainUiState.Disconnected
         }
     }
@@ -117,7 +121,7 @@ class MainViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         viewModelScope.launch {
-            tcpClient?.close()
+            tlsClient?.close()
         }
     }
 }
