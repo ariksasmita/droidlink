@@ -61,9 +61,12 @@ fun MainScreen(
                         // For now, simulate scan with test button
                         Button(
                             onClick = {
-                                // Simulate QR scan with test data
+                                // Simulate QR scan with Mac-like data
                                 val timestamp = System.currentTimeMillis() / 1000
-                                val testQR = "{\"version\": \"1.0.0\", \"deviceId\": \"test-mac-123\", \"deviceName\": \"MacBook Pro\", \"certificateFingerprint\": \"aa:bb:cc:dd\", \"timestamp\": $timestamp}"
+                                val randomFingerprint = (1..64).map { ('a'..'f').random() }.joinToString("")
+                                val deviceId = "mac-device-$timestamp"
+                                val deviceName = "Test MacBook Pro"
+                                val testQR = "{\"version\": \"1.0.0\", \"deviceId\": \"$deviceId\", \"deviceName\": \"$deviceName\", \"certificateFingerprint\": \"$randomFingerprint\", \"timestamp\": $timestamp}"
                                 viewModel.onQRCodeScanned(testQR)
                             }
                         ) {
