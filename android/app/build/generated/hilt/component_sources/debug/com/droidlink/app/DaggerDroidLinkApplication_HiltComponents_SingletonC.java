@@ -356,10 +356,6 @@ public final class DaggerDroidLinkApplication_HiltComponents_SingletonC {
     }
 
     @Override
-    public void injectMainActivity(MainActivity arg0) {
-    }
-
-    @Override
     public DefaultViewModelFactories.InternalFactoryFactory getHiltInternalFactoryFactory() {
       return DefaultViewModelFactories_InternalFactoryFactory_Factory.newInstance(Collections.<Class<?>, Boolean>emptyMap(), new ViewModelCBuilder(singletonCImpl, activityRetainedCImpl));
     }
@@ -490,7 +486,7 @@ public final class DaggerDroidLinkApplication_HiltComponents_SingletonC {
     }
 
     @Override
-    public void injectDroidLinkApplication(DroidLinkApplication arg0) {
+    public void injectDroidLinkApplication(DroidLinkApplication droidLinkApplication) {
     }
 
     @Override

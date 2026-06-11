@@ -69,6 +69,7 @@ dependencies {
     // Core modules
     implementation(project(":core:security"))
     implementation(project(":core:network"))
+    implementation(project(":core:clipboard"))
 
     // Compose
     implementation(platform("androidx.compose:compose-bom:2024.02.00"))

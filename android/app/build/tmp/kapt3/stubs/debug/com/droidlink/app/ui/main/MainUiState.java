@@ -6,7 +6,9 @@ import com.droidlink.core.network.TlsTcpClient;
 import com.droidlink.core.security.DeviceInfo;
 import com.droidlink.core.security.QRCodeParser;
 import com.droidlink.core.security.ValidationResult;
+import com.droidlink.core.clipboard.ClipboardManager;
 import kotlinx.coroutines.flow.StateFlow;
+import android.content.Context;
 
 @kotlin.Metadata(mv = {1, 9, 0}, k = 1, xi = 48, d1 = {"\u0000&\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\b7\u0018\u00002\u00020\u0001:\u0006\u0003\u0004\u0005\u0006\u0007\bB\u0007\b\u0004\u00a2\u0006\u0002\u0010\u0002\u0082\u0001\u0006\t\n\u000b\f\r\u000e\u00a8\u0006\u000f"}, d2 = {"Lcom/droidlink/app/ui/main/MainUiState;", "", "()V", "Connected", "Connecting", "Disconnected", "Error", "ReadyToScan", "Scanning", "Lcom/droidlink/app/ui/main/MainUiState$Connected;", "Lcom/droidlink/app/ui/main/MainUiState$Connecting;", "Lcom/droidlink/app/ui/main/MainUiState$Disconnected;", "Lcom/droidlink/app/ui/main/MainUiState$Error;", "Lcom/droidlink/app/ui/main/MainUiState$ReadyToScan;", "Lcom/droidlink/app/ui/main/MainUiState$Scanning;", "app_debug"})
 public abstract class MainUiState {

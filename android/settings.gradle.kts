@@ -18,3 +18,4 @@ rootProject.name = "DroidLink"
 include(":app")
 include(":core:network")
 include(":core:security")
+include(":core:clipboard")

@@ -63,14 +63,24 @@ public class TlsTcpServer {
                 print("📩 Received: \(message)")
                 
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(
-                        name: .messageReceived,
-                        object: message
-                    )
+                    // Handle clipboard messages
+                    if message.hasPrefix("CLIPBOARD:") {
+                        let clipboardContent = String(message.dropFirst(10))
+                        NotificationCenter.default.post(
+                            name: .droidlinkClipboardChanged,
+                            object: clipboardContent
+                        )
+                        print("📋 Clipboard content received: \(clipboardContent)")
+                    } else {
+                        NotificationCenter.default.post(
+                            name: .messageReceived,
+                            object: message
+                        )
+                    }
                 }
                 
-                // Send response
-                let response = "Hello from Mac! Received: \(message)".data(using: .utf8)
+                // Send response (with newline for line-based protocol)
+                let response = "Hello from Mac! Received: \(message)\n".data(using: .utf8)
                 if let response = response {
                     connection.send(content: response, completion: .contentProcessed { _ in
                         // Continue receiving
@@ -95,6 +105,21 @@ public class TlsTcpServer {
     /// Get server certificate fingerprint for display in QR code
     public func getServerCertificateFingerprint() -> String {
         return serverFingerprint ?? certGenerator.generateFingerprint()
+    }
+    
+    /// Send data to all connected clients
+    public func broadcast(_ message: String) {
+        // Add newline for line-based protocol
+        guard let data = (message + "\n").data(using: .utf8) else { return }
+        for connection in connections {
+            connection.send(content: data, completion: .contentProcessed { error in
+                if let error = error {
+                    print("❌ Failed to send: \(error)")
+                } else {
+                    print("📤 Sent: \(message)")
+                }
+            })
+        }
     }
     
     public init() {}

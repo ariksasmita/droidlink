@@ -7,11 +7,13 @@ import com.droidlink.core.network.TlsTcpClient
 import com.droidlink.core.security.DeviceInfo
 import com.droidlink.core.security.QRCodeParser
 import com.droidlink.core.security.ValidationResult
+import com.droidlink.core.clipboard.ClipboardManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import android.content.Context
 
 sealed class MainUiState {
     object Disconnected : MainUiState()
@@ -23,11 +25,12 @@ sealed class MainUiState {
 }
 
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
-class MainViewModel : ViewModel() {
+class MainViewModel(private val context: Context) : ViewModel() {
     private val _uiState = MutableStateFlow<MainUiState>(MainUiState.Disconnected)
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
     private var tlsClient: TlsTcpClient? = null
+    private var clipboardManager: ClipboardManager? = null
     private val qrCodeParser = QRCodeParser()
 
     fun startPairing() {
@@ -74,15 +77,15 @@ class MainViewModel : ViewModel() {
                             // Send a hello message
                             tlsClient?.send("Hello from ${deviceInfo.deviceName}!")
                             
-                            // Wait for response
-                            val response = tlsClient?.receive()
-                            println("📩 Server response: $response")
-                            
-                            // Simulate connection delay
-                            delay(2000)
                             _uiState.value = MainUiState.Connected(deviceInfo.deviceName)
+                            
+                            // Start clipboard monitoring
+                            startClipboardMonitoring(context)
+                            
+                            // Start listening for incoming messages from Mac
+                            startListeningForMessages()
                         } catch (e: Exception) {
-                            println("❌ TCP connection failed: ${e.message}")
+                            Log.e("MainViewModel", "❌ TCP connection failed: ${e.message}")
                             // For now, still show as connected even if TCP fails
                             delay(2000)
                             _uiState.value = MainUiState.Connected(deviceInfo.deviceName)
@@ -118,10 +121,50 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    private fun startClipboardMonitoring(context: Context) {
+        Log.d("MainViewModel", "Starting clipboard monitoring")
+        clipboardManager = ClipboardManager(context) { clipboardContent ->
+            Log.d("MainViewModel", "Clipboard changed: $clipboardContent")
+            // Send to Mac
+            viewModelScope.launch {
+                try {
+                    tlsClient?.send("CLIPBOARD:$clipboardContent")
+                    Log.d("MainViewModel", "Sent clipboard to Mac")
+                } catch (e: Exception) {
+                    Log.e("MainViewModel", "Failed to send clipboard", e)
+                }
+            }
+        }
+        clipboardManager?.startMonitoring()
+    }
+    
+    private fun startListeningForMessages() {
+        viewModelScope.launch {
+            while (true) {
+                try {
+                    val message = tlsClient?.receive()
+                    if (message != null) {
+                        Log.d("MainViewModel", "📩 Received from Mac: $message")
+                        
+                        if (message.startsWith("CLIPBOARD:")) {
+                            val clipboardContent = message.removePrefix("CLIPBOARD:")
+                            Log.d("MainViewModel", "📋 Setting clipboard from Mac: $clipboardContent")
+                            clipboardManager?.setContent(clipboardContent)
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("MainViewModel", "Error receiving messages", e)
+                    break
+                }
+            }
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelScope.launch {
             tlsClient?.close()
+            clipboardManager?.stopMonitoring()
         }
     }
 }

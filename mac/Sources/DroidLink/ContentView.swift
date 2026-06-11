@@ -91,6 +91,7 @@ class ContentViewModel: ObservableObject {
     
     private var tlsServer: TlsTcpServer?
     private var qrCodeGenerator = QRCodeGenerator()
+    private var clipboardManager = ClipboardManager()
     
     init() {
         print("🎨 ContentViewModel initialized")
@@ -120,6 +121,21 @@ class ContentViewModel: ObservableObject {
                 print("❌ Failed to start server: \(error)")
             }
             
+            // Listen for clipboard changes from Android
+            NotificationCenter.default.addObserver(
+                forName: .droidlinkClipboardChanged,
+                object: nil,
+                queue: .main
+            ) { [weak self] notification in
+                if let clipboardContent = notification.object as? String {
+                    print("📋 Setting clipboard from Android: \(clipboardContent)")
+                    self?.clipboardManager.setContent(clipboardContent)
+                }
+            }
+            
+            // Start monitoring Mac clipboard for changes to send to Android
+            startClipboardWatcher()
+            
             // Generate QR code
             let deviceName = Host.current().localizedName ?? "Mac"
             let fingerprint = String((0..<64).map { _ in "0123456789abcdef".randomElement()! })
@@ -147,6 +163,21 @@ class ContentViewModel: ObservableObject {
         print("🔌 Disconnecting")
         state = .disconnected
         tlsServer?.stop()
+    }
+    
+    private func startClipboardWatcher() {
+        Task {
+            var lastClipboard = clipboardManager.getContent()
+            while true {
+                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5s
+                let currentClipboard = clipboardManager.getContent()
+                if currentClipboard != lastClipboard && !currentClipboard.isEmpty {
+                    print("📋 Mac clipboard changed: \(currentClipboard)")
+                    lastClipboard = currentClipboard
+                    tlsServer?.broadcast("CLIPBOARD:\(currentClipboard)")
+                }
+            }
+        }
     }
 }
 
